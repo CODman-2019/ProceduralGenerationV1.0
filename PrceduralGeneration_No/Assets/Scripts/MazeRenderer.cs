@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class MazeRenderer : MonoBehaviour
 {
+    //transform objects for building maze and placeholders
     [SerializeField]
     private Transform wallPrefab = null;
 
     [SerializeField]
     private Transform floorObject = null;
 
-    public Transform FPSController;
-    public Transform teleporter;
+    public Transform playerObject;
+    public Transform itemObject;
 
+    //size of maze
     [Range(1, 50)]
     public int width;
     [Range(1, 50)]
     public int height;
 
-    [Range(1, 50)]
-    public int levels;
 
+    //used for scaling objects
     [SerializeField]
     private float size = 1f;
 
@@ -29,20 +30,14 @@ public class MazeRenderer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //WallState[] mazes = new WallState[levels];
-        var mazes = new List<WallState[,]>();
-
-        //for (int x = 0; x < levels; x++)
-        //{
-        //    //var maze = 
-        //    mazes[x] = MazeGenerator.Generate(width, height, true);;
-        //}
-        var maze = MazeGenerator.Generate(width, height, true);
+        
+        var maze = MazeGenerator.Generate(width, height);
         Draw(maze);
 
         //var rnd = new System.Random();
 
     }
+
 
     //builds maze
     private void Draw(WallState[,] maze)
@@ -50,7 +45,7 @@ public class MazeRenderer : MonoBehaviour
 
         //creating the floor
         var floor = Instantiate(floorObject);
-        floor.localScale = new Vector3(width, 0.1f, height);
+        floor.localScale = new Vector3(width * 1.5f, 0.01f, height * 1.5f);
 
         //go through the width and height
         for(int i = 0; i < width; i++)
@@ -62,6 +57,11 @@ public class MazeRenderer : MonoBehaviour
                 //adjust the position
                 var position = new Vector3(-width / 2 + i, 0, -height / 2 + j);
 
+                if (cell.HasFlag(WallState.PLAYER))
+                {
+                    var player = Instantiate(playerObject, transform);
+                    player.position = position + new Vector3(0, 0.1f, 0);
+                }
                 //creating and instantiating walls based on which wall is made
                 if (cell.HasFlag(WallState.UP))
                 {
@@ -79,7 +79,7 @@ public class MazeRenderer : MonoBehaviour
                     leftWall.eulerAngles = new Vector3(0, 90, 0);
                 }
 
-                //if the loop reaches the las collum it builds the right wall
+                //if the loop reaches the las colum it builds the right wall
                 if(i == width - 1)
                 {
                     if (cell.HasFlag(WallState.RIGHT))
@@ -91,9 +91,10 @@ public class MazeRenderer : MonoBehaviour
                     }
                 }
 
-                //if the loop is on the first collom, it builds the bottom wall
+                //if the loop is on the first collom
                 if (j == 0)
                 {
+                    //if the cell has a bottom wall, it builds the bottom wall
                     if (cell.HasFlag(WallState.DOWN))
                     {
                         var bottomWall = Instantiate(wallPrefab, transform);
@@ -102,30 +103,17 @@ public class MazeRenderer : MonoBehaviour
                     }
                 }
 
-                if (cell.HasFlag(WallState.PLAYER))
+                if (cell.HasFlag(WallState.ITEM))
                 {
-                    var player = Instantiate(FPSController, transform);
-                    //player.position = position;
+                    var item = Instantiate(itemObject, transform);
+                    item.position = position + new Vector3(0, 0.1f, 0);
                 }
-
-                //if (cell.HasFlag(WallState.TELEPORTER))
-                //{
-                //    var teleport = Instantiate(teleporter, transform) as Transform;
-                //}
-
+                
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    var maze = MazeGenerator.Generate(width, height, true);
-        //    Draw(maze);
-        //}   
-    }
+ 
 }
 
 
