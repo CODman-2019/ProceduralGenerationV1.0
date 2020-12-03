@@ -55,11 +55,11 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\MazeGenerator.cs" />
-    <Compile Include="Assets\Scripts\PlayerCamera.cs" />
-    <Compile Include="Assets\Scripts\MazeRenderer.cs" />
-    <Compile Include="Assets\Scripts\rotator.cs" />
+    <Compile Include="Assets\Scripts\old Code\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\old Code\MazeGenerator.cs" />
+    <Compile Include="Assets\Scripts\old Code\PlayerCamera.cs" />
+    <Compile Include="Assets\Scripts\old Code\MazeRenderer.cs" />
+    <Compile Include="Assets\Scripts\old Code\rotator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

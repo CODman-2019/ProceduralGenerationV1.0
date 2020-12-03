@@ -156,8 +156,8 @@ MonoBehaviour:
   floorObject: {fileID: 4163876553841255715, guid: e7da6a8a45e3234489ba38dc223639c7, type: 3}
   playerObject: {fileID: 5488450095090805312, guid: 919cb5dc93fede340bca1bd0f57ac20a, type: 3}
   itemObject: {fileID: 7685951979952100868, guid: 496dc814a9871b14b961dd81cf943ccc, type: 3}
-  width: 13
-  height: 13
+  width: 12
+  height: 12
   size: 1
 --- !u!4 &572905746
 Transform:
